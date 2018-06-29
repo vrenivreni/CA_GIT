@@ -1,0 +1,20 @@
+\chapter{Rendering Modes}
+Für die Rendering Modes 0, 1, 2 stehen vier übereinanderliegende Schichten. Diese Schichten haben die Bezeichnung Background 0 - Background 3.
+Die Rendering Modes werden in einem speziellen Register festgelegt, dessen Namen \textbf{REG\_DISPCNT} trägt. In diesem Register werden die Modes und Background Features festgelegt, wie dann später die Ausgabe erfolgt.
+Das Register hat die Adresse: \textbf{0x4000000}. Diese drei Modes arbeiten mit sogenannten Tiles (zu Deutsch: Kacheln). Diese Tiles werden in Hardware implementiert und brauchen weniger Speicher als die Bitmapgrafiken der Rendering Modes 4,5,6.\\
+Das Register hat die Adresse: . Diese drei Modes arbeiten mit sogenannten Tiles (zu Deutsch: Kacheln). Diese Tiles werden in Hardware implementiert und brauchen weniger Speicher als die Bitmapgrafiken der Rendering Modes 4,5,6.\\
+Die folgende Tabelle gibt einen kurzen Überblick der Modes 1,2,3 und beschreibt, wie sich die Background des jeweiligen Einstellung verhalten: \\
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{mode} & \textbf{BG0} & \textbf{BG1} & \textbf{BG2} & \textbf{BG3} \\ \hline
+1 & regular & regular & regular & regular \\ \hline
+2 & regular & regular & affine & - \\ \hline
+3 & - & - & affine & affine \\ \hline
+\end{tabular}
+\caption{Überblick der Hintergrund-Modi}
+\label{Überblick der Hintergrund-Modi}
+\end{table}
+Es gibt zwei verschiedene Typen von Hintergründen. Regular Background werden oft als reine Texthintergründe bezeichnet, wohingegen die affinen Hintergründe die Fähigkeit der Rotation um die eigene Achse besitzen.
+Es wird nun im folgenden anhand einiger Codebeispiele aus dem \textbf{Tonc\_code} näher auf die jeweiligen Modes der Tiles eingegangen und dessen Verhalten im mGBA beschrieben.
