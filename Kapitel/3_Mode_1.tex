@@ -15,7 +15,13 @@ Dieser affine Background ermöglicht es, eine geometrische Transformation um ein
 \caption{Einstellungen des affinen Hintergrundes}
 \label{size}
 \end{table}
-
+\begin{wrapfigure}{l}{0mm}
+	\includegraphics[height=50mm]{img/pic128.png}
+	\caption{Bilddarstellung mit 128x128 Pixel}
+	\includegraphics[height=50mm]{img/pic16.png}
+	\caption{Bilddarstellung mit 128x128 Pixel}
+\end{wrapfigure}
+Um dies beispielhaft zu demonstrieren, wird die vorgegebenen Einstellung von \textbf{BG\_AFF\_64x64} auf \textbf{BG\_AFF\_128x128} und \textbf{BG\_AFF\_16x16 }geändert und man kann eine deutliche Veränderung hinsichtlich der Anzahl der Kacheln beobachten. Diese haben sich in der Anzahl der in X-Achse befindlichen Tiles auf 128 erhöht, beziehungsweise auf 16 verringert. Das obere Bild zeigt das die Einstellung von 128x128 Tiles, das untere die Einstellung von 16x16 Tiles. Je nach Setzen des Wertes der global definierten Variable für die Größe des skalierbaren Hintergrund ändert sich auf die Anzahl der farbigen Kacheln. Im Beispielbild mit 16x16 als Konfiguration, sind nur die roten Kacheln zu sehen, wohingegen bei 128x128 mehrere Farben zu beobachten sind, jedoch nur immer zwei Spalten mit der jeweiligen gleichen Farbe. Damit man mehrere Spalten mit der gleichen Farbe sehen kann, muss die globale Variable mit dem Namen \textbf{MAP\_AFF\_SIZE} geändert werden. Diese hat als Standardwert 0x0100. Wird dieser auf den Wert 0x0200 gesetzt, erhöht sich die Anzahl der gleichfarbigen Kachel von zwei auf vier im Beispiel mit der Konfiguration von 128x128 Tiles. Im Codebeispiel \textbf{sbb\_aff.c} wird der Hintergrund mit dem Funktion \textbf{init\_map()} eingestellt und dargestellt. Auf diese Funktion wird später nochmals näher eingegangen und die Codeabschnitte veranschaulicht erklär
 
 \section{Affine Background Control Register}
 Das primäre Register, welchen den Hintergrund identifiziert, hat die Definition REG\_BGxCNT. Das \textbf{X} ist ein Platzhalter für den Hintergrund, der angesprochen wird. Im Mode 1 wäre das \textbf{REG\_BG2CNT} der skalierbare Hintergrund 2. Dieses Register hat die Länge zwei und die Adresse \textbf{ 0400:0008h + 2*x} . Das Register hat folgende Spezifikationen:
@@ -52,11 +58,6 @@ E - F & Sz & BG\_SIZE & \textbf{Background Size}: hier wird die Hintergrundgrö�
 Um die Tabelle näher zu erläutern, wird in einem Beispiel der Wert \textbf{BG\_WRAP} gesetzt und danach beschrieben, welche Auswirkung dies hat. Der Background 2, welche für die Darstellung der skalierbaren Kacheln zuständig ist, hat den kompletten Bildschirm des mGBA eingenommen. Lässt man den Wert weg, sieht man wieder einen schwarzen Hintergrund. Mit \textbf{BG\_WRAP} ist dies nicht mehr möglich, weil der Hintergrund dann die Kacheln sind. Die Kachel der eigentlich rotierbaren Ebene füllen den kompletten Bildschrim aus. Man kann dies mit einem Desktophintergrund vergleichen, welcher den kompletten Bildschirm belegt. 
 Bemerkung: BG\_WRAP ist nur bei rotier- und skalierbaren Hintergründen möglich. Bei regulären Hintergründen funktioniert diese Einstellung nicht!
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[height=85mm]{img/bgwrap.png}
-	\caption{Bild mit aktiviertem BG\_WRAP}
-\end{figure}
 \newpage
 \section{init\_map() Funktion}
 In diesem Abschnitt wird die \textbf{init\_map()} Funktion nähert behandelt, welche für das Initialisieren und dem Zeichnen der Kacheln zuständig ist. \\
@@ -78,7 +79,7 @@ Die Variable \textbf{ses} ist der Platzhalter für die Beschreibung der Farben d
 \caption{Farbdarstellung der Tiles}
 \label{tilesfarbe}
 \end{table}
-
+\newpage
 \begin{wrapfigure}{r}{0mm}
 	\includegraphics[height=50mm]{img/gerade.png}
 	\caption{Anzeige der geraden Kacheln}
@@ -90,6 +91,7 @@ Die Variable \textbf{ses} ist der Platzhalter für die Beschreibung der Farben d
 Der achtstellige Hexadezimalwert von der Variable ses lässt sich in vier Kategorien einteilen, die dann die jeweiligen Spalten darstellen
 Als Beispiel hierfür, werden einmal die geraden Spalten und die ungeraden Spalten mit unterschiedlichen Farben angezeigt. 
 An diesen beiden Bilder erkennt man, dass einmal die geraden Spalten mit rot und und pink belegt sind und die ungeraden mit gelb und bläulicher Farbe. Dies kann man den Hexwerten von \textbf{ses = 0x000D0001} entnehmen. Die letzte eins entspricht der ersten Spalte bei der Anzeige. Beim unteren Bild erkennt man schön den Spaltenversatz zum obigen Bild. Das resultiert daraus, dass hier nur die ungeraden Spalten angesprochen werden. Der Hexadezimalwert ist im unteren Beispiel mit dem Wert \textbf{ses = 0x0E000300} versehen. Diese Beispiel zeigt, dass man in der Lage ist, die einzelne Spalten beliebig farblich zu verändern und anzupassen. Darüber hinaus sieht man im Code - Snippet \textbf{ses += 0x0000000}. Hier können die Farben auch angepasst werden, nur dass die sich dann Zeilenweise verändern. Zum Beispiel ist es dabei möglich zwei Zeilen mit rot zu belegen, danach dann zwei Zeilen mit einer anderen Farbe. Man hat auch die möglichkeit vier Zeilen mit einer anderen Farbe zu belegen oder jede Zeile.Dies ist abhängig anhander der Einstellung die man wählt. Hier spielt dann die Variable \textbf{pse += MAP\_AFF\_SIZE/4} eine nützliche Rolle. Bei \textbf{/4} werden vier Zeilen jeweils mit der gleichen Farbe angezeigt. Bei \textbf{/8} werden lediglich nur zwei Zeilen mit der gleichen Farbe versehen.
+
 
 \section{Skalierbare und rotierbarer Hintergrund}
 Die Funktion sbb\_aff() übernimmt die komplette Aufgabe bezüglich Rotierbarkeit und Skalierung der Tiles, welche von der Funktion init\_map() gezeichnet werden. Im Folgenden wird auf die Funktion sbb\_aff() näher eingegangen und diese ausführlich erläutert. Die Funktion übernimmt unter anderem das Zeichen der $p_{0}$, $q_{0}$ und dx Variablen beziehungsweise Koordinanten, welche im mGBA unten rechts angezeigt werden. Hier wird lediglich eine print-Funktion aufgerufen, welche die aktuellen Werte ausliest und eine Ausgabe ermöglicht. Die print-Funktion wird hier nicht näher erläutert, sondern die Konzentration liegt bei der Skalierung und Rotierbarkeit der Karte. Die affinen Tilemaps benutzen andere Register, welche für diese Dynamik ausgelegt sind. Anstatt \textbf{REG\_BGxHOFS} und \textbf{REG\_BGxVOFS} benutzen die affinen Hintergründe die Register \textbf{REG\_BGx}X und \textbf{REG\_BGxY,} wobei hier \textbf{x} für den Hintergrund steht. Im folgenden wird näher auf die Register und auf die Transformation der affinen Hintergründe eingegangen. Es werden auch anschaulich die mathematischen Operationen aufgezeigt. Die Register sind in zwei unterschiedliche Typen aufgeteilt. Das eine ist für den Vektor dx (\textbf{REG\_BGxX} und \textbf{REG\_BGxY}) zuständig, das andere für die affine \textit{Matrix P} (\textbf{REG\_BGxPA} und \textbf{REG\_BGxPG}) zuständig. Auf die Matrix P wird aufgrund des Umfanges nicht näher darauf eingegangen.
@@ -154,7 +156,7 @@ P  & Transformation von Y zu X Koordinate                  \\ \hline
 \caption{Erlaeuterung der mathematischen Varbiablen}
 \label{mathavar}
 \end{table}
-\newpage
+
 Wenn der Verschiebungsvektor dx verwendet wird, dann wird eine Transformation um den Punkt $p_{0}$gemacht. Das führt zu der y-Punktkoordinate $q_{0}$im Bild. Die Multiplikation $p_{0}* P$ ist die Korrektur der X-Koordinate. Dies ist notwendig, um die Rotation um den Punkt $q_{0}$, anstatt um (0,0) zu ermöglichen. Im Beispiel sbb\_aff.c wird diese Transformation von der Funktion \textbf{bg\_rotscale\_ex()} übernommen.
 \begin{figure}[h]
 	\centering
