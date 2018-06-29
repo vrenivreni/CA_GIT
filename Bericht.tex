@@ -23,7 +23,7 @@
 % Optionale Pakete und Einstellungen
 % ===========================================================
 
-% \usepackage{scrhack}    % Sollte mit listings zusammen aktiviert werden
+\usepackage{scrhack}    % Sollte mit listings zusammen aktiviert werden
 \usepackage{listings}   % Für Code-Beispiele
 % \usepackage{multicol}   % Mehrspaltige Aufzählungen
 \usepackage{amssymb}    % Mathematische Symbole
@@ -33,6 +33,8 @@
 \usepackage{url}          % URL Formatierung
 \usepackage{wrapfig}
 \usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
 
 % \setcounter{tocdepth}{3}   % Tiefe der Überschriften die ins Inhaltsverzeichnis sollen
  \renewcommand{\baselinestretch}{1.25}\normalsize   % Zeilenabstand ändern, falls gewollt
@@ -58,7 +60,7 @@
 % ===========================================================
 
 % \usepackage[style=numeric,backend=biber, sorting=nyt,natbib=true]{biblatex} % Alternative Zitierung mit [x]
-\usepackage[backend=bibtex, sorting=nyt,natbib=true]{biblatex} % Ähnlich Harvard-Citation style mit \autocite (übernommen aus "Hinweise zum Praktikumsbericht")
+\usepackage[backend=biber, sorting=nyt,natbib=true]{biblatex} % Ähnlich Harvard-Citation style mit \autocite (übernommen aus "Hinweise zum Praktikumsbericht")
 \usepackage[babel,german=guillemets]{csquotes}
 \bibliography{Bib/Literaturverzeichnis}
 
@@ -130,7 +132,7 @@
 % Tabellenverzeichnis
 % ===========================================================
 
-%\input{acronym}
+\input{acronym}
 
 % ===========================================================
 % Bericht Teile - Anpassen je nach Notwendigkeit
