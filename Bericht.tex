@@ -35,6 +35,8 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{fancyhdr}
+
 
 % \setcounter{tocdepth}{3}   % Tiefe der Überschriften die ins Inhaltsverzeichnis sollen
  \renewcommand{\baselinestretch}{1.25}\normalsize   % Zeilenabstand ändern, falls gewollt
@@ -71,10 +73,23 @@
 \DefineBibliographyStrings{ngerman}{
     bibliography = {Literaturverzeichnis}
 }
+% ===========================================================
+% Für Kopf und Fußzeile
+% ===========================================================
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{\slshape \rightmark}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
 
 % ===========================================================
 % Für Abkürzungen und Abkürzungsverzeichnis
 % ===========================================================
+
+
 
 \usepackage[printonlyused]{acronym}
 
