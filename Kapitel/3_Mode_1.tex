@@ -67,7 +67,7 @@ Zuerst das Code Snippet:
 
 \lstinputlisting[language=C, frame=single, breaklines = true, numbers=left, basicstyle=\ttfamily, keywordstyle=\color{blue}\ttfamily, stringstyle=\color{red}\ttfamily, commentstyle=\color{green}\ttfamily, label=initmap,caption=init\_map() Funktion]{code/initmap.c}
 
-Die Variable \textbf{ses} ist der Platzhalter für die Beschreibung der Farben der jeweiligen Kacheln, die dann angezeigt werden. In der folgenden Tabelle wird das Farbspektrum und die Ausgabe der Farben näher beschrieben. Dies ist für das Verständnis wichtig, wie der \acs{GBA} die Farben darstellt. In diesem Standardbeispiel sind es acht verschieden Farben die jeweils immer über vier Spalten und Zeilen gemeinsam ausgegeben werden. Da die Iteration beim Zeile 26 im Listing \ref{initmap} über 16 Werte geht, wird ab Wert 0x08 wieder die gleiche Farbe, wie bei 0x01 angezeigt.
+Die Variable \textbf{ses} ist der Platzhalter für die Beschreibung der Farben der jeweiligen Kacheln, die dann angezeigt werden. In der folgenden Tabelle wird das Farbspektrum und die Ausgabe der Farben näher beschrieben. Dies ist für das Verständnis wichtig, wie der \acs{GBA} die Farben darstellt. In diesem Standardbeispiel sind es acht verschieden Farben die jeweils immer über vier Spalten und Zeilen gemeinsam ausgegeben werden. Da die Iteration in Zeile 26 im Codelisting \ref{initmap} über 16 Werte geht, wird ab Wert 0x08 wieder die gleiche Farbe, wie bei 0x01 angezeigt.
 
 \begin{table}[h]
 \centering
@@ -159,13 +159,13 @@ P  & Transformation von Y zu X Koordinate                  \\ \hline
 \label{mathavar}
 \end{table}
 
-Wenn der Verschiebungsvektor dx verwendet wird, dann wird eine Transformation um den Punkt $p_{0}$gemacht. Das führt zu der y-Punktkoordinate $q_{0}$im Bild. Die Multiplikation $p_{0}* P$ ist die Korrektur der X-Koordinate. Dies ist notwendig, um die Rotation um den Punkt $q_{0}$, anstatt um (0,0) zu ermöglichen. Im Beispiel sbb\_aff.c wird diese Transformation von der Funktion \textbf{bg\_rotscale\_ex()} übernommen. \citep{matrixp}
-\begin{figure}[h]
+Wenn der Verschiebungsvektor dx verwendet wird, dann wird eine Transformation um den Punkt $p_{0}$gemacht. Das führt zu der Y-Punktkoordinate $q_{0}$im Bild. Die Multiplikation $p_{0}* P$ ist die Korrektur der X-Koordinate. Dies ist notwendig, um die Rotation um den Punkt $q_{0}$, anstatt um die Koordinaten (0,0), zu ermöglichen. Im Beispiel \textbf{sbb\_aff.c} wird diese Transformation von der Funktion \textbf{bg\_rotscale\_ex()} übernommen. \citep{matrixp}
+\begin{figure}[H]
 	\centering
 	\includegraphics[height=85mm]{img/rotation.png}
 	\caption{Rotationbeispiel der Tiles}
 	\label{rotation}
 \end{figure}
 
-Hier ist das Code-Snippet mit eingefügten Kommentaren, um die Verständnis des Codes zu erleichtern. Die Kommentare sind ergänzt und der Quellcode ist ausführlich mit dem mGBA getestet worden. Auch hier würde eine detailiertere Beschreibung den Rahmen dieser Studienarbeit sprengen.
+Im Code-Snippet \ref{sbbaff} sind ausführlich Kommentare eingefügt, um das Verständnis des Codes zu erleichtern und einzelne Abschnitte zu erläutern. Die Kommentare sind ergänzt und der Quellcode ist ausführlich mit dem \ac{GBA} getestet worden. Auch hier würde eine detailliertere Beschreibung jeder Zeile mit Erklärung den Rahmen dieser Studienarbeit sprengen.
 \lstinputlisting[language=C, breaklines = true, numbers=left, frame=single, basicstyle=\ttfamily, keywordstyle=\color{blue}\ttfamily, stringstyle=\color{red}\ttfamily, commentstyle=\color{green}\ttfamily, label=sbbaff,caption=sbb\_aff() Funktion]{code/rotate.c} 
